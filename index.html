@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marie qui défait les nœuds - Neuvaine complète</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Marie qui défait les nœuds</h1>
+            <p>Neuvaine complète en 20 étapes</p>
+            <div class="day-counter" id="day-counter">Jour 1 de la Neuvaine</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Étape 1: Allumer la bougie -->
+        <div class="step-card active" id="step-1">
+            <div class="step-title">
+                <div class="step-number">1</div>
+                Allumez une bougie
+            </div>
+            <div class="step-content">
+                <p>Cliquez sur la bougie pour l'allumer et commencer votre prière.</p>
+                <div class="candle-container">
+                    <div class="candle" onclick="lightCandle()">
+                        <div class="flame" id="flame"></div>
+                    </div>
+                </div>
+                <p id="candle-status">Bougie éteinte - Cliquez pour allumer</p>
+            </div>
+        </div>
+
+        <!-- Étape 2: Image de Marie -->
+        <div class="step-card" id="step-2">
+            <div class="step-title">
+                <div class="step-number">2</div>
+                Placez une image de Marie près de vous
+            </div>
+            <div class="step-content">
+                <p>Si vous possédez une image de Marie qui défait les nœuds, placez-la près de vous. Sinon, une image de la Vierge Marie remplira son office.</p>
+                <div class="marie-image" onclick="showMarie()" id="marie-img">
+                    Cliquez pour révéler l'image de Marie
+                </div>
+            </div>
+        </div>
+
+        <!-- Étape 3: Brûler l'encens -->
+        <div class="step-card" id="step-3">
+            <div class="step-title">
+                <div class="step-number">3</div>
+                Faites brûler l'encens de Marie qui défait les nœuds
+            </div>
+            <div class="step-content">
+                <p>Allumez votre encens pour créer une atmosphère de prière.</p>
+                <div class="incense-container">
+                    <div class="incense" onclick="burnIncense()">
+                        <div class="smoke" id="smoke"></div>
+                    </div>
+                </div>
+                <p id="incense-status">Cliquez pour allumer l'encens</p>
+            </div>
+        </div>
+
+        <!-- Étape 4: Écrire le nœud -->
+        <div class="step-card" id="step-4">
+            <div class="step-title">
+                <div class="step-number">4</div>
+                Écrivez votre nœud sur un papier
+            </div>
+            <div class="step-content">
+                <p>Écrivez sur un papier le nœud que vous souhaitez voir défait par Marie. Gardez ce papier dans votre main gauche, celle du cœur.</p>
+                <textarea class="prayer-request" id="prayer-request" placeholder="Décrivez ici le nœud que vous souhaitez voir défait..."></textarea>
+                <div class="paper-container">
+                    <div class="paper" onclick="takePaper()" id="paper">
+                        <span id="paper-text">Cliquez pour prendre le papier</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Étape 5: Munissez-vous de votre chapelet -->
+        <div class="step-card" id="step-5">
+            <div class="step-title">
+                <div class="step-number">5</div>
+                Munissez-vous de votre chapelet
+            </div>
+            <div class="step-content">
+                <p>Prenez votre chapelet en main pour commencer la prière.</p>
+                <div class="rosary" id="main-rosary" style="display: none;">
+                    <!-- Chapelet complet qui apparaîtra -->
+                </div>
+                <button class="btn" onclick="showRosary()">Révéler le chapelet</button>
+            </div>
+        </div>
+
+        <!-- Étape 6: Recueillement -->
+        <div class="step-card" id="step-6">
+            <div class="step-title">
+                <div class="step-number">6</div>
+                Recueillez-vous un instant
+            </div>
+            <div class="step-content">
+                <div class="recollection">
+                    🙏 Prenez un moment de silence pour vous recueillir et préparer votre cœur à la prière 🙏
+                </div>
+                <p>Fermez les yeux et préparez votre cœur à rencontrer Marie.</p>
+            </div>
+        </div>
+
+        <!-- Étape 7: Signe de croix -->
+        <div class="step-card" id="step-7">
+            <div class="step-title">
+                <div class="step-number">7</div>
+                Faites le signe de la croix
+            </div>
+            <div class="step-content">
+                <div class="sign-cross">✚ Au nom du Père, et du Fils, et du Saint-Esprit. Amen. ✚</div>
+            </div>
+        </div>
+
+        <!-- Étape 8: Acte de contrition -->
+        <div class="step-card" id="step-8">
+            <div class="step-title">
+                <div class="step-number">8</div>
+                Récitez l'acte de contrition
+            </div>
+            <div class="step-content">
+                <div class="prayer-text">
+                    <strong>Acte de contrition :</strong><br><br>
+                    Mon Dieu, j'ai un très grand regret de Vous avoir offensé<br>
+                    Parce que Vous êtes infiniment bon<br>
+                    Et que le péché Vous déplaît.<br>
+                    Je prends la ferme résolution,<br>
+                    Avec le secours de Votre Sainte Grâce,<br>
+                    De ne plus Vous offenser et de faire pénitence.<br>
+                    Amen.
+                </div>
+            </div>
+        </div>
+
+        <!-- Étape 9: Méditation sur les mystères -->
+        <div class="step-card" id="step-9">
+            <div class="step-title">
+                <div class="step-number">9</div>
+                Méditez sur le mystère à prier
+            </div>
+            <div class="step-content">
+                <p>Méditez sur le mystère qui va être prié avant chaque dizaine de chapelet selon le jour de la semaine :</p>
+                <div class="mysteries">
+                    <div class="mystery-card">
+                        <div class="mystery-title">Mystères Joyeux</div>
+                        <p>Lundi et Samedi</p>
+                    </div>
+                    <div class="mystery-card">
+                        <div class="mystery-title">Mystères Lumineux</div>
+                        <p>Jeudi</p>
+                    </div>
+                    <div class="mystery-card">
+                        <div class="mystery-title">Mystères Douloureux</div>
+                        <p>Mardi et Vendredi</p>
+                    </div>
+                    <div class="mystery-card">
+                        <div class="mystery-title">Mystères Glorieux</div>
+                        <p>Mercredi et Dimanche</p>
+                    </div>
+                </div>
+                <div class="mystery-meditation">
+                    <strong>Réflexion :</strong> Avant chaque dizaine, méditez sur le mystère correspondant et laissez-le illuminer votre cœur pendant que vous priez.
+                </div>
+            </div>
+        </div>
+
+        <!-- Étape 10: Trois premières dizaines -->
+        <div class="step-card" id="step-10">
+            <div class="step-title">
+                <div class="step-number">10</div>
+                Priez les trois premières dizaines du chapelet
+            </div>
+            <div class="step-content">
+                <p><strong>Pour chaque dizaine :</strong> Un Notre Père + Dix Je vous salue Marie + Un Gloire au Père</p>
+                <div class="rosary" id="first-rosary">
+                    <!-- Première série de 3 dizaines -->
+                </div>
+                <p>Cliquez sur chaque grain au fur et à mesure de vos prières.</p>
+            </div>
+        </div>
+
+        <!-- Étape 11: Recueillement -->
+        <div class="step-card" id="step-11">
+            <div class="step-title">
+                <div class="step-number">11</div>
+                Recueillez-vous
+            </div>
+            <div class="step-content">
+                <div class="recollection">
+                    🕊️ Moment de recueillement silencieux 🕊️
+                </div>
+                <p>Prenez un moment pour laisser résonner vos prières dans votre cœur.</p>
+            </div>
+        </div>
+
+        <!-- Étape 12: Prière de louange -->
+        <div class="step-card" id="step-12">
+            <div class="step-title">
+                <div class="step-number">12</div>
+                Lisez la prière de louange à Marie qui défait les nœuds
+            </div>
+            <div class="step-content">
+                <div class="prayer-text">
+                    <strong>Prière de louange :</strong><br><br>
+                    Vierge Marie, Mère du bel Amour, Mère qui n'avez jamais abandonné un enfant qui crie au secours, Mère dont les mains travaillent sans cesse pour vos enfants bien aimés, car elles sont poussées par l'Amour divin et l'infinie Miséricorde qui déborde de votre cœur, tournez votre regard plein de compassion vers moi.<br><br>
+                    
+                    Voyez le paquet de « nœuds » qui étouffent ma vie. Vous connaissez mon désespoir et ma douleur. Vous savez combien ces nœuds me paralysent.<br><br>
+                    
+                    Marie, Mère que Dieu a chargée de défaire les « nœuds » de la vie de vos enfants, je dépose le ruban de ma vie dans vos mains. Personne, pas même le Malin, ne peut le soustraire à votre aide miséricordieuse.<br><br>
+                    
+                    Dans vos mains, il n'y a pas un seul nœud qui ne puisse être défait. Vous êtes l'unique Consolatrice que Dieu m'a donnée, vous êtes la forteresse de mes forces fragiles, la richesse de mes misères, la délivrance de tout ce qui m'empêche d'être avec le Christ.<br><br>
+                    
+                    Marie, Vous qui défaites les nœuds, priez pour nous. Amen.
+                </div>
+            </div>
+        </div>
+
+        <!-- Étape 13: Recueillement -->
+        <div class="step-card" id="step-13">
+            <div class="step-title">
+                <div class="step-number">13</div>
+                Fermez les yeux et recueillez-vous
+            </div>
+            <div class="step-content">
+                <div class="recollection">
+                    👁️‍🗨️ Fermez les yeux et laissez Marie toucher votre cœur 👁️‍🗨️
+                </div>
+                <p>Moment d'intimité spirituelle avec la Vierge Marie.</p>
+            </div>
+        </div>
+
+        <!-- Étape 14: Prière de supplication -->
+        <div class="step-card" id="step-14">
+            <div class="step-title">
+                <div class="step-number">14</div>
+                Lisez la prière de supplication à Marie qui défait les nœuds
+            </div>
+            <div class="step-content">
+                <div class="prayer-text">
+                    <strong>Prière de supplication :</strong><br><br>
+                    Mère toute puissante, par votre grâce et par votre pouvoir d'intercession auprès de votre Fils Jésus, Mon Libérateur, recevez aujourd'hui ce « nœud » que je vous présente :<br><br>
+                    
+                    <strong id="user-request-supplication">(Votre nœud apparaîtra ici)</strong><br><br>
+                    
+                    Pour la gloire de Dieu, je vous demande de le défaire et de le défaire pour toujours. J'espère en Vous.<br><br>
+                    
+                    Accueillez mon appel. Gardez-moi, guidez-moi, protégez-moi. Vous êtes mon refuge assuré.<br><br>
+                    
+                    Marie, Vous qui défaites les nœuds, priez pour nous. Amen.
+                </div>
+            </div>
+        </div>
+
+        <!-- Étape 15: Recueillement -->
+        <div class="step-card" id="step-15">
+            <div class="step-title">
+                <div class="step-number">15</div>
+                Fermez les yeux et recueillez-vous
+            </div>
+            <div class="step-content">
+                <div class="recollection">
+                    🌟 Recueillement après la supplication 🌟
+                </div>
+                <p>Laissez votre demande s'élever vers le
