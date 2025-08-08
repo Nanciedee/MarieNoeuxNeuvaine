@@ -1,401 +1,426 @@
-// ===== VARIABLES GLOBALES =====
-let currentStep = 1;
-let candleLit = false;
-let marieVisible = false;
-let incenseBurning = false;
-let paperTaken = false;
-let rosaryVisible = false;
-const totalSteps = 20;
-let completedSteps = [];
-let silenceTimer = null;
+// Les textes de prières et méditations de la neuvaine
+const prayers = {
+    crossSign: "Au nom du Père, et du Fils, et du Saint-Esprit. Amen.",
+    contrition: "Mon Dieu, j'ai un très grand regret de Vous avoir offensé<br>Parce que Vous êtes infiniment bon<br>Et que le péché Vous déplaît.<br>Je prends la ferme résolution,<br>Avec le secours de Votre Sainte Grâce,<br>De ne plus Vous offenser et de faire pénitence.<br>Amen.",
+    glory: "Gloire au Père, et au Fils, et au Saint-Esprit, comme il était au commencement, maintenant et toujours, et dans les siècles des siècles. Amen.",
+    ourFather: "Notre Père, qui es aux cieux, que ton nom soit sanctifié, que ton règne vienne, que ta volonté soit faite sur la terre comme au ciel. Donne-nous aujourd'hui notre pain de ce jour. Pardonne-nous nos offenses, comme nous pardonnons aussi à ceux qui nous ont offensés. Et ne nous soumets pas à la tentation, mais délivre-nous du mal. Amen.",
+    hailMary: "Je vous salue Marie, pleine de grâce ; le Seigneur est avec vous. Vous êtes bénie entre toutes les femmes, et Jésus, le fruit de vos entrailles, est béni. Sainte Marie, Mère de Dieu, priez pour nous, pauvres pécheurs, maintenant et à l'heure de notre mort. Amen.",
+    louange: "Vierge Marie, Mère du bel Amour, Mère qui n'avez jamais abandonné un enfant qui crie au secours, Mère dont les mains travaillent sans cesse pour vos enfants bien aimés, car elles sont poussées par l'Amour divin et l'infinie Miséricorde qui déborde de votre cœur, tournez votre regard plein de compassion vers moi.<br><br>Voyez le paquet de « nœuds » qui étouffent ma vie. Vous connaissez mon désespoir et ma douleur. Vous savez combien ces nœuds me paralysent.<br><br>Marie, Mère que Dieu a chargée de défaire les « nœuds » de la vie de vos enfants, je dépose le ruban de ma vie dans vos mains. Personne, pas même le Malin, ne peut le soustraire à votre aide miséricordieuse.<br><br>Dans vos mains, il n'y a pas un seul nœud qui ne puisse être défait. Vous êtes l'unique Consolatrice que Dieu m'a donnée, vous êtes la forteresse de mes forces fragiles, la richesse de mes misères, la délivrance de tout ce qui m'empêche d'être avec le Christ.<br><br>Marie, Vous qui défaites les nœuds, priez pour nous. Amen.",
+    supplication: "Mère toute puissante, par votre grâce et par votre pouvoir d'intercession auprès de votre Fils Jésus, Mon Libérateur, recevez aujourd'hui ce « nœud » que je vous présente :",
+    dailyMeditations: [
+        "Marie, en ce premier jour de notre neuvaine, nous nous tournons vers vous avec confiance. Vous qui avez dit oui à Dieu sans condition, aidez-nous à accepter sa volonté dans nos vies. Défaites le premier nœud qui nous entrave : celui du doute et de la peur. Que votre foi illumine la nôtre.",
+        "Marie, Mère de l'espérance, en ce deuxième jour, nous vous confions notre manque de confiance en Dieu. Défaites le nœud de l'incertitude et de l'anxiété. Aidez-nous à croire que, même dans les moments sombres, votre Fils est avec nous.",
+        "Marie, Mère de la patience, en ce troisième jour, nous vous demandons de défaire le nœud de l'impatience et du découragement. Apprenez-nous à attendre le moment de Dieu, à persévérer dans la prière et à ne jamais perdre espoir, même lorsque tout semble bloqué.",
+        "Marie, Mère de la compassion, en ce quatrième jour, nous vous présentons le nœud de nos blessures et de nos amertumes. Aidez-nous à pardonner à ceux qui nous ont offensés, et à nous pardonner à nous-mêmes. Que votre douceur panse nos cœurs et défasse le nœud de la rancune.",
+        "Marie, Mère de l'obéissance, en ce cinquième jour, nous vous confions notre difficulté à suivre la volonté de Dieu. Défaites le nœud de notre orgueil et de notre rébellion. Montrez-nous la voie de l'humilité et de l'abandon confiant à la Providence divine.",
+        "Marie, Mère du silence, en ce sixième jour, nous vous demandons de défaire le nœud de notre agitation intérieure et de notre bavardage inutile. Apprenez-nous à écouter la voix de Dieu dans le silence de nos cœurs, afin de mieux comprendre sa volonté pour nos vies.",
+        "Marie, Mère de la justice, en ce septième jour, nous vous présentons le nœud de l'injustice et du péché dans le monde. Intercédez pour nous afin que nous soyons des instruments de paix et de réconciliation. Aidez-nous à lutter contre le mal en commençant par défaire les nœuds de nos propres faiblesses.",
+        "Marie, Mère de la joie, en ce huitième jour, nous vous confions le nœud de la tristesse et de la mélancolie. Aidez-nous à découvrir la joie de l'Évangile, à sourire même dans l'épreuve, et à témoigner de la bonté de Dieu autour de nous.",
+        "Marie, Mère de la grâce, en ce neuvième jour, nous vous présentons tous nos nœuds. Défaites-les pour toujours par votre intercession. Aidez-nous à rester unis à votre Fils Jésus, et à vivre dans la paix et la grâce qu'il nous donne. Nous vous remercions, Marie, pour votre amour et votre aide tout au long de cette neuvaine. Amen."
+    ],
+    mysteries: {
+        joyeux: [
+            "1. L'Annonciation : Le mystère de l'humilité.",
+            "2. La Visitation : Le mystère de la charité.",
+            "3. La Nativité : Le mystère de la pauvreté.",
+            "4. La Présentation au Temple : Le mystère de l'obéissance.",
+            "5. Le Recouvrement de Jésus au Temple : Le mystère de la recherche de Dieu."
+        ],
+        lumineux: [
+            "1. Le Baptême de Jésus au Jourdain : Le mystère de notre filiation divine.",
+            "2. Les Noces de Cana : Le mystère de la confiance en Marie.",
+            "3. L'Annonce du Royaume de Dieu : Le mystère de la conversion.",
+            "4. La Transfiguration : Le mystère de la gloire de Dieu.",
+            "5. L'Institution de l'Eucharistie : Le mystère de l'amour sans fin."
+        ],
+        douloureux: [
+            "1. L'Agonie de Jésus au Jardin des Oliviers : Le mystère de la prière confiante.",
+            "2. La Flagellation : Le mystère de la mortification.",
+            "3. Le Couronnement d'épines : Le mystère de l'humiliation.",
+            "4. Le Portement de la Croix : Le mystère de la persévérance.",
+            "5. La Crucifixion et la Mort de Jésus : Le mystère du salut."
+        ],
+        glorieux: [
+            "1. La Résurrection : Le mystère de la foi.",
+            "2. L'Ascension : Le mystère de l'espérance.",
+            "3. La Pentecôte : Le mystère du don de l'Esprit Saint.",
+            "4. L'Assomption de Marie : Le mystère de la béatitude.",
+            "5. Le Couronnement de Marie : Le mystère de la dévotion filiale."
+        ]
+    }
+};
 
-// ===== GESTION DES ÉTAPES =====
-function updateStepVisibility() {
-    const steps = document.querySelectorAll('.step-card');
+let currentStep = 1;
+const totalSteps = 20;
+let novenaDay = 1;
+let rosaryBead = 0;
+let silenceTimerId;
+let rosaryDone = false;
+let userRequest = "";
+
+const steps = document.querySelectorAll('.step-card');
+const progressBarFill = document.getElementById('progress-fill');
+const dayCounter = document.getElementById('day-counter');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const completeBtn = document.getElementById('complete-btn');
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadProgress();
+    updateUI();
+    document.getElementById('user-request-supplication').innerText = userRequest || "Décrivez votre nœud à l'étape 4 pour qu'il apparaisse ici.";
+    updateRosary();
+});
+
+function saveProgress() {
+    localStorage.setItem('novenaProgress', JSON.stringify({
+        currentStep,
+        novenaDay,
+        userRequest
+    }));
+}
+
+function loadProgress() {
+    const savedProgress = JSON.parse(localStorage.getItem('novenaProgress'));
+    if (savedProgress) {
+        currentStep = savedProgress.currentStep;
+        novenaDay = savedProgress.novenaDay;
+        userRequest = savedProgress.userRequest;
+    }
+}
+
+function updateUI() {
     steps.forEach((step, index) => {
-        const stepNumber = index + 1;
-        step.classList.remove('active', 'completed');
-        
-        if (stepNumber === currentStep) {
-            step.classList.add('active');
-            step.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else if (completedSteps.includes(stepNumber)) {
-            step.classList.add('completed');
-        }
+        step.classList.toggle('active', index + 1 === currentStep);
     });
 
-    // Update progress bar
-    const progress = ((completedSteps.length) / totalSteps) * 100;
-    document.getElementById('progress-fill').style.width = progress + '%';
+    const progress = (currentStep / totalSteps) * 100;
+    progressBarFill.style.width = `${progress}%`;
+    dayCounter.innerText = `Jour ${novenaDay} de la Neuvaine`;
 
-    // Update buttons
-    document.getElementById('prev-btn').disabled = currentStep === 1;
-    document.getElementById('next-btn').disabled = currentStep === totalSteps;
-    
-    // Update complete button
-    const completeBtn = document.getElementById('complete-btn');
-    if (completedSteps.includes(currentStep)) {
-        completeBtn.textContent = 'Étape terminée ✓';
-        completeBtn.disabled = true;
-    } else {
-        completeBtn.textContent = 'Terminer cette étape';
-        completeBtn.disabled = false;
-    }
+    // Met à jour les textes des étapes
+    updateStepContent();
 
-    // Update user request in prayers
-    const userRequest = document.getElementById('prayer-request').value;
-    const supplicationElement = document.getElementById('user-request-supplication');
-    if (supplicationElement) {
-        supplicationElement.textContent = userRequest || '(Votre nœud)';
+    // Gestion de l'affichage des boutons
+    prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+    nextBtn.style.display = currentStep < totalSteps ? 'block' : 'none';
+    completeBtn.style.display = 'none'; // Le bouton "terminer" n'est pas utilisé pour le moment
+
+    // Auto-scroll vers l'étape active
+    const activeStepElement = document.getElementById(`step-${currentStep}`);
+    if (activeStepElement) {
+        activeStepElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
 
 function nextStep() {
     if (currentStep < totalSteps) {
         currentStep++;
-        updateStepVisibility();
+        saveProgress();
+        updateUI();
     }
 }
 
 function previousStep() {
     if (currentStep > 1) {
         currentStep--;
-        updateStepVisibility();
+        saveProgress();
+        updateUI();
     }
 }
 
-function completeStep() {
-    if (!completedSteps.includes(currentStep)) {
-        completedSteps.push(currentStep);
-        updateStepVisibility();
-        
-        // Auto-advance to next step after completing
-        setTimeout(() => {
-            if (currentStep < totalSteps) {
-                nextStep();
-            }
-        }, 1000);
+function updateStepContent() {
+    // Etape 8: Acte de contrition
+    const step8Content = document.querySelector('#step-8 .prayer-text');
+    if (step8Content) {
+        step8Content.innerHTML = `<strong>Acte de contrition :</strong><br><br>${prayers.contrition}`;
+    }
+
+    // Etape 12: Prière de louange
+    const step12Content = document.querySelector('#step-12 .prayer-text');
+    if (step12Content) {
+        step12Content.innerHTML = `<strong>Prière de louange :</strong><br><br>${prayers.louange}`;
+    }
+
+    // Etape 14: Prière de supplication
+    const step14Content = document.querySelector('#step-14 .prayer-text');
+    if (step14Content) {
+        step14Content.innerHTML = `<strong>Prière de supplication :</strong><br><br>${prayers.supplication}<br><br><strong id="user-request-supplication">${userRequest || "Décrivez votre nœud à l'étape 4 pour qu'il apparaisse ici."}</strong><br><br>Pour la gloire de Dieu, je vous demande de le défaire et de le défaire pour toujours. J'espère en Vous.<br><br>Accueillez mon appel. Gardez-moi, guidez-moi, protégez-moi. Vous êtes mon refuge assuré.<br><br>Marie, Vous qui défaites les nœuds, priez pour nous. Amen.`;
+    }
+
+    // Etape 16: Méditation du jour
+    const meditationInput = document.getElementById('daily-meditation');
+    if (meditationInput) {
+        meditationInput.value = prayers.dailyMeditations[novenaDay - 1] || "Pas de méditation pour ce jour.";
     }
 }
 
-// ===== INTERACTIONS SPÉCIFIQUES =====
-
-// Bougie
 function lightCandle() {
+    const candle = document.querySelector('.candle');
     const flame = document.getElementById('flame');
     const status = document.getElementById('candle-status');
-    
-    if (!candleLit) {
+    const finalCandle = document.getElementById('final-flame');
+
+    if (!flame.classList.contains('lit')) {
         flame.classList.add('lit');
-        status.innerHTML = 'Bougie allumée ✨<br><em>La lumière du Christ illumine votre prière</em>';
-        candleLit = true;
-        
-        setTimeout(() => {
-            completeStep();
-        }, 1500);
+        candle.style.backgroundImage = 'url(candle-lit.png)';
+        status.innerText = 'Bougie allumée - C’est un moment sacré.';
+        finalCandle.classList.add('lit');
     }
 }
 
 function extinguishCandle() {
     const flame = document.getElementById('final-flame');
+    const candle = document.querySelector('#step-20 .candle');
     const status = document.getElementById('final-candle-status');
-    
-    flame.classList.remove('lit');
-    status.innerHTML = 'Bougie éteinte ✅<br><em>Votre prière s\'élève vers le ciel</em>';
-    
-    setTimeout(() => {
-        completeStep();
-    }, 1000);
-}
 
-// Image de Marie
-function showMarie() {
-    const marieImg = document.getElementById('marie-img');
-    
-    if (!marieVisible) {
-        marieImg.classList.add('visible', 'fade-in');
-        marieImg.innerHTML = '<div style="position: absolute; bottom: 10px; left: 0; right: 0; color: #667eea; font-size: 12px; font-weight: bold;">Marie qui défait les nœuds</div>';
-        marieVisible = true;
-        
-        setTimeout(() => {
-            completeStep();
-        }, 2000);
+    if (flame.classList.contains('lit')) {
+        flame.classList.remove('lit');
+        candle.style.backgroundImage = 'url(candle-unlit.png)';
+        status.innerText = 'Bougie éteinte';
     }
 }
 
-// Encens
+function showMarie() {
+    const imgContainer = document.getElementById('marie-img');
+    imgContainer.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Maria_Knotenloeserin.jpg/800px-Maria_Knotenloeserin.jpg" alt="Marie qui défait les nœuds" style="width: 100%; border-radius: 8px;">';
+}
+
 function burnIncense() {
+    const incense = document.querySelector('.incense');
     const smoke = document.getElementById('smoke');
     const status = document.getElementById('incense-status');
-    
-    if (!incenseBurning) {
-        smoke.classList.add('burning');
-        status.innerHTML = 'Encens allumé 💨<br><em>Vos prières montent vers le ciel</em>';
-        incenseBurning = true;
-        
-        setTimeout(() => {
-            completeStep();
-        }, 2000);
+
+    if (!incense.classList.contains('burning')) {
+        incense.classList.add('burning');
+        smoke.style.display = 'block';
+        status.innerText = 'L’encens brûle...';
     }
 }
 
-// Papier
 function takePaper() {
     const paper = document.getElementById('paper');
     const paperText = document.getElementById('paper-text');
-    const request = document.getElementById('prayer-request').value.trim();
-    
-    if (request && !paperTaken) {
-        paper.classList.add('written', 'in-hand');
-        paperText.innerHTML = '<strong>Papier en main gauche</strong><br><em>Votre nœud confié à Marie</em>';
-        paperTaken = true;
-        
-        setTimeout(() => {
-            completeStep();
-        }, 1500);
-    } else if (!request) {
-        alert('Veuillez d\'abord écrire votre nœud dans la zone de texte.');
+    userRequest = document.getElementById('prayer-request').value;
+
+    if (userRequest.trim() !== "") {
+        paperText.innerText = 'Papier prêt, en main gauche.';
+        paper.style.backgroundColor = '#f7e6a7';
+        paper.style.border = '2px solid #e0c98f';
+        alert('Votre nœud a été enregistré. N’oubliez pas de le garder dans votre main gauche pendant la prière.');
+        document.getElementById('user-request-supplication').innerText = userRequest;
+    } else {
+        alert('Veuillez d’abord écrire votre nœud.');
     }
 }
 
-// Chapelet
-function showRosary() {
-    const rosary = document.getElementById('main-rosary');
-    
-    if (!rosaryVisible) {
-        rosary.style.display = 'flex';
-        rosary.classList.add('fade-in');
-        createRosary(rosary, 50);
-        rosaryVisible = true;
-        
-        setTimeout(() => {
-            completeStep();
-        }, 1000);
+function crumplePaper() {
+    const paperContainer = document.querySelector('#step-20 .prayer-text');
+    paperContainer.innerHTML = `<img src="https://media.giphy.com/media/l4EpfK94mD4yV84oM/giphy.gif" alt="Papier qui se froisse" style="width: 100%; max-width: 200px; display: block; margin: 20px auto;">`;
+}
+
+function nextDay() {
+    if (novenaDay < 9) {
+        novenaDay++;
+        currentStep = 1;
+        saveProgress();
+        updateUI();
+        alert(`Passage au Jour ${novenaDay} de la Neuvaine.`);
+    } else {
+        alert("La Neuvaine est terminée ! Félicitations.");
+        resetNovena();
     }
 }
 
-function createRosary(container, beadCount) {
-    container.innerHTML = '';
-    for (let i = 0; i < beadCount; i++) {
-        const bead = document.createElement('div');
-        bead.classList.add('bead');
-        
-        // Make every 11th bead larger (Our Father beads)
-        if ((i + 1) % 11 === 1) {
-            bead.classList.add('large');
+// Mystères à afficher
+const currentDay = new Date().getDay(); // 0 = Dimanche, 1 = Lundi...
+function getMysteriesForToday() {
+    switch (currentDay) {
+        case 1: // Lundi
+        case 6: // Samedi
+            return prayers.mysteries.joyeux;
+        case 4: // Jeudi
+            return prayers.mysteries.lumineux;
+        case 2: // Mardi
+        case 5: // Vendredi
+            return prayers.mysteries.douloureux;
+        case 0: // Dimanche
+        case 3: // Mercredi
+            return prayers.mysteries.glorieux;
+        default:
+            return prayers.mysteries.joyeux;
+    }
+}
+
+function displayMysteryPopup(mysteryText) {
+    const modal = document.createElement('div');
+    modal.classList.add('mystery-modal');
+    modal.innerHTML = `
+        <div class="mystery-modal-content">
+            <span class="close-btn">&times;</span>
+            <p>${mysteryText}</p>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    const closeBtn = modal.querySelector('.close-btn');
+    closeBtn.onclick = () => modal.remove();
+
+    window.onclick = (event) => {
+        if (event.target === modal) {
+            modal.remove();
         }
-        
-        bead.addEventListener('click', function() {
-            this.classList.toggle('prayed');
-            
-            // Check if all beads in this rosary are prayed
-            const allBeads = container.querySelectorAll('.bead');
-            const prayedBeads = container.querySelectorAll('.bead.prayed');
-            
-            if (prayedBeads.length === allBeads.length) {
-                setTimeout(() => {
-                    completeStep();
-                }, 500);
-            }
-        });
-        
-        container.appendChild(bead);
-    }
+    };
 }
 
-// Silence timer
+// Gestion des mystères
+document.querySelectorAll('.mystery-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+        const title = card.querySelector('.mystery-title').innerText;
+        let mysteriesList = '';
+        switch (title) {
+            case 'Mystères Joyeux':
+                mysteriesList = prayers.mysteries.joyeux.join('<br>');
+                break;
+            case 'Mystères Lumineux':
+                mysteriesList = prayers.mysteries.lumineux.join('<br>');
+                break;
+            case 'Mystères Douloureux':
+                mysteriesList = prayers.mysteries.douloureux.join('<br>');
+                break;
+            case 'Mystères Glorieux':
+                mysteriesList = prayers.mysteries.glorieux.join('<br>');
+                break;
+        }
+        displayMysteryPopup(`<strong>${title} :</strong><br><br>${mysteriesList}`);
+    });
+});
+
+function showRosary() {
+    const rosaryContainer = document.getElementById('main-rosary');
+    const firstRosaryContainer = document.getElementById('first-rosary');
+    const secondRosaryContainer = document.getElementById('second-rosary');
+
+    rosaryContainer.style.display = 'block';
+
+    const renderRosary = (container, numberOfDecades) => {
+        container.innerHTML = '';
+        for (let i = 0; i < numberOfDecades; i++) {
+            const decadeDiv = document.createElement('div');
+            decadeDiv.classList.add('decade');
+            const ourFatherBead = document.createElement('div');
+            ourFatherBead.classList.add('bead', 'our-father');
+            ourFatherBead.dataset.prayer = 'ourFather';
+            decadeDiv.appendChild(ourFatherBead);
+
+            for (let j = 0; j < 10; j++) {
+                const hailMaryBead = document.createElement('div');
+                hailMaryBead.classList.add('bead', 'hail-mary');
+                hailMaryBead.dataset.prayer = 'hailMary';
+                decadeDiv.appendChild(hailMaryBead);
+            }
+
+            const gloryBead = document.createElement('div');
+            gloryBead.classList.add('bead', 'glory');
+            gloryBead.dataset.prayer = 'glory';
+            decadeDiv.appendChild(gloryBead);
+
+            container.appendChild(decadeDiv);
+        }
+    };
+
+    renderRosary(firstRosaryContainer, 3);
+    renderRosary(secondRosaryContainer, 2);
+}
+
+function updateRosary() {
+    // La logique de marquage des grains est gérée par les clics directs
+}
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('bead')) {
+        e.target.classList.toggle('prayed');
+        const prayerType = e.target.dataset.prayer;
+        const prayerText = prayers[prayerType];
+        alert(`Vous venez de prier un ${prayerType === 'ourFather' ? 'Notre Père' : prayerType === 'hailMary' ? 'Je vous salue Marie' : 'Gloire au Père'}.`);
+    }
+});
+
+
 function startSilence() {
-    const timer = document.getElementById('timer-display');
+    const timerDisplay = document.getElementById('timer-display');
     const countdown = document.getElementById('countdown');
-    const button = event.target;
+    const startButton = document.querySelector('#step-19 .btn');
+
+    startButton.style.display = 'none';
+    timerDisplay.style.display = 'block';
     
-    button.style.display = 'none';
-    timer.style.display = 'block';
-    
-    let seconds = 60;
-    countdown.textContent = seconds;
-    
-    silenceTimer = setInterval(() => {
-        seconds--;
-        countdown.textContent = seconds;
-        
-        if (seconds <= 0) {
-            clearInterval(silenceTimer);
-            countdown.textContent = '🕊️';
-            countdown.nextElementSibling.textContent = 'Silence terminé. Paix à votre âme.';
-            
-            setTimeout(() => {
-                completeStep();
-            }, 2000);
+    let timeLeft = 60;
+    countdown.innerText = timeLeft;
+
+    silenceTimerId = setInterval(() => {
+        timeLeft--;
+        countdown.innerText = timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(silenceTimerId);
+            alert("Le temps de silence est terminé. Vous pouvez continuer.");
+            startButton.style.display = 'block';
+            timerDisplay.style.display = 'none';
+            countdown.innerText = '60'; // Réinitialise l'affichage
         }
     }, 1000);
 }
 
-// Chiffonner le papier
-function crumplePaper() {
-    const textarea = document.getElementById('prayer-request');
-    const paper = document.getElementById('paper');
-    
-    textarea.classList.add('crumpling');
-    paper.classList.add('crumpling');
-    
-    setTimeout(() => {
-        textarea.value = '';
-        textarea.placeholder = 'Nouveau nœud pour le prochain jour de la neuvaine...';
-        textarea.classList.remove('crumpling');
-        textarea.classList.add('fade-in');
-        
-        paper.classList.remove('crumpling', 'written', 'in-hand');
-        document.getElementById('paper-text').textContent = 'Nouveau papier pour demain';
-        
-        // Reset for next day
-        paperTaken = false;
-        
-        setTimeout(() => {
-            textarea.classList.remove('fade-in');
-        }, 800);
-    }, 1500);
-}
-
-// ===== ÉVÉNEMENTS ET INITIALISATION =====
-
-// Initialize rosaries for steps 10 and 18
-document.addEventListener('DOMContentLoaded', function() {
-    createRosary(document.getElementById('first-rosary'), 33); // 3 decades
-    createRosary(document.getElementById('second-rosary'), 22); // 2 decades
-    updateStepVisibility();
-    
-    // Auto-save prayer request
-    document.getElementById('prayer-request').addEventListener('input', function() {
-        localStorage.setItem('prayerRequest', this.value);
-    });
-
-    // Load saved prayer request
-    const saved = localStorage.getItem('prayerRequest');
-    if (saved) {
-        document.getElementById('prayer-request').value = saved;
-    }
-    
-    // Update day counter based on stored data
-    const currentDay = localStorage.getItem('novenaDay') || '1';
-    document.getElementById('day-counter').textContent = `Jour ${currentDay} de la Neuvaine`;
-});
-
-// Keyboard navigation
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowRight' && currentStep < totalSteps) {
-        nextStep();
-    } else if (e.key === 'ArrowLeft' && currentStep > 1) {
-        previousStep();
-    } else if (e.key === ' ') {
-        e.preventDefault();
-        completeStep();
-    }
-});
-
-// Auto-save progress
-setInterval(() => {
-    localStorage.setItem('completedSteps', JSON.stringify(completedSteps));
-    localStorage.setItem('currentStep', currentStep.toString());
-}, 5000);
-
-// Load saved progress
-window.addEventListener('load', function() {
-    const savedCompleted = localStorage.getItem('completedSteps');
-    const savedCurrent = localStorage.getItem('currentStep');
-    
-    if (savedCompleted) {
-        completedSteps = JSON.parse(savedCompleted);
-    }
-    
-    if (savedCurrent) {
-        currentStep = parseInt(savedCurrent);
-    }
-    
-    updateStepVisibility();
-});
-
-// ===== FONCTIONS UTILITAIRES =====
-
-// Réinitialiser la neuvaine
 function resetNovena() {
-    if (confirm('Êtes-vous sûr de vouloir recommencer la neuvaine depuis le début ?')) {
-        localStorage.clear();
-        location.reload();
-    }
-}
-
-// Passer au jour suivant
-function nextDay() {
-    const currentDay = parseInt(localStorage.getItem('novenaDay') || '1');
-    const newDay = currentDay < 9 ? currentDay + 1 : 1;
-    
-    localStorage.setItem('novenaDay', newDay.toString());
-    localStorage.removeItem('completedSteps');
-    localStorage.removeItem('currentStep');
-    
-    // Reset variables
+    localStorage.clear();
     currentStep = 1;
-    completedSteps = [];
-    candleLit = false;
-    marieVisible = false;
-    incenseBurning = false;
-    paperTaken = false;
-    rosaryVisible = false;
-    
-    // Update display
-    document.getElementById('day-counter').textContent = `Jour ${newDay} de la Neuvaine`;
-    updateStepVisibility();
+    novenaDay = 1;
+    userRequest = "";
+    clearInterval(silenceTimerId);
+    updateUI();
+    document.location.reload();
 }
 
-// Export/Import de la progression (pour sauvegarde)
 function exportProgress() {
-    const data = {
-        currentStep: currentStep,
-        completedSteps: completedSteps,
-        prayerRequest: localStorage.getItem('prayerRequest'),
-        novenaDay: localStorage.getItem('novenaDay')
-    };
-    
-    const dataStr = JSON.stringify(data, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    
-    const exportFileDefaultName = `neuvaine_marie_jour${data.novenaDay}.json`;
-    
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
+    const data = JSON.stringify({
+        currentStep,
+        novenaDay,
+        userRequest
+    });
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'neuvaine_progres.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 }
 
 function importProgress(event) {
     const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const data = JSON.parse(e.target.result);
-                
-                currentStep = data.currentStep || 1;
-                completedSteps = data.completedSteps || [];
-                
-                if (data.prayerRequest) {
-                    localStorage.setItem('prayerRequest', data.prayerRequest);
-                    document.getElementById('prayer-request').value = data.prayerRequest;
-                }
-                
-                if (data.novenaDay) {
-                    localStorage.setItem('novenaDay', data.novenaDay);
-                    document.getElementById('day-counter').textContent = `Jour ${data.novenaDay} de la Neuvaine`;
-                }
-                
-                updateStepVisibility();
-                alert('Progression importée avec succès !');
-                
-            } catch (error) {
-                alert('Erreur lors de l\'importation du fichier.');
-            }
-        };
-        reader.readAsText(file);
+    if (!file) {
+        return;
     }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const importedData = JSON.parse(e.target.result);
+            if (importedData && importedData.currentStep && importedData.novenaDay) {
+                currentStep = importedData.currentStep;
+                novenaDay = importedData.novenaDay;
+                userRequest = importedData.userRequest || "";
+                saveProgress();
+                updateUI();
+                alert("Progression importée avec succès !");
+            } else {
+                alert("Fichier de progression invalide.");
+            }
+        } catch (error) {
+            alert("Erreur lors de la lecture du fichier.");
+        }
+    };
+    reader.readAsText(file);
 }
