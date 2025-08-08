@@ -125,11 +125,33 @@ h1 {
 }
 
 .controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 760px;
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #e2e8f0;
+    align-items: center;
+    background: white;
+    padding: 15px 25px;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    z-index: 999;
+}
+
+@media (max-width: 600px) {
+    .controls {
+        flex-direction: column;
+        bottom: 10px;
+        padding: 10px;
+        border-radius: 15px;
+    }
+    .controls .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
 }
 
 .btn {
