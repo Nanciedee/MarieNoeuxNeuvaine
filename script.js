@@ -98,17 +98,44 @@ function updateUI() {
     progressBarFill.style.width = `${progress}%`;
     dayCounter.innerText = `Jour ${novenaDay} de la Neuvaine`;
 
-    // Met à jour les textes des étapes
     updateStepContent();
 
-    // Gestion de l'affichage des boutons
-    prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
-    nextBtn.style.display = currentStep < totalSteps ? 'block' : 'none';
-    completeBtn.style.display = 'none'; // Le bouton "terminer" n'est pas utilisé pour le moment
-
-    // Auto-scroll vers l'étape active
+    // Affiche le bouton "Suivant" directement sous l'étape active
     const activeStepElement = document.getElementById(`step-${currentStep}`);
     if (activeStepElement) {
+        // Supprime les boutons précédents et suivants des étapes précédentes
+        const oldControls = document.querySelectorAll('.step-controls');
+        oldControls.forEach(control => control.remove());
+
+        // Crée de nouveaux boutons pour l'étape actuelle
+        const controlsDiv = document.createElement('div');
+        controlsDiv.classList.add('step-controls');
+        controlsDiv.style.marginTop = '20px';
+        controlsDiv.style.display = 'flex';
+        controlsDiv.style.justifyContent = 'space-between';
+
+        if (currentStep > 1) {
+            const prevButton = document.createElement('button');
+            prevButton.classList.add('btn');
+            prevButton.innerText = 'Précédent';
+            prevButton.onclick = previousStep;
+            controlsDiv.appendChild(prevButton);
+        } else {
+            // Placeholder pour l'alignement
+            const emptyDiv = document.createElement('div');
+            controlsDiv.appendChild(emptyDiv);
+        }
+
+        if (currentStep < totalSteps) {
+            const nextButton = document.createElement('button');
+            nextButton.classList.add('btn');
+            nextButton.innerText = 'Suivant';
+            nextButton.onclick = nextStep;
+            controlsDiv.appendChild(nextButton);
+        }
+
+        activeStepElement.appendChild(controlsDiv);
+
         activeStepElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
