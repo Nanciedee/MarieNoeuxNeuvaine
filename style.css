@@ -1,0 +1,529 @@
+/* ===== STYLES GÉNÉRAUX ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ===== EN-TÊTE ===== */
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.progress-bar {
+    background: rgba(255,255,255,0.2);
+    height: 8px;
+    border-radius: 4px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: #FFD700;
+    height: 100%;
+    transition: width 0.5s ease;
+    border-radius: 4px;
+}
+
+.day-counter {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* ===== CARTES D'ÉTAPES ===== */
+.step-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px 0;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    opacity: 0.4;
+    transition: all 0.3s ease;
+    transform: scale(0.98);
+}
+
+.step-card.active {
+    opacity: 1;
+    transform: scale(1);
+    border-left: 5px solid #667eea;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.step-card.completed {
+    opacity: 0.7;
+    background: #f8f9ff;
+    border-left: 3px solid #28a745;
+}
+
+.step-title {
+    color: #667eea;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.step-number {
+    background: #667eea;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.step-card.completed .step-number {
+    background: #28a745;
+}
+
+.step-content {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* ===== ÉLÉMENTS INTERACTIFS ===== */
+
+/* Bougie */
+.candle-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.candle {
+    width: 60px;
+    height: 120px;
+    background: linear-gradient(to bottom, #f4e4bc, #d4c4a8);
+    border-radius: 8px 8px 15px 15px;
+    margin: 0 auto;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.candle:hover {
+    transform: scale(1.05);
+}
+
+.flame {
+    width: 18px;
+    height: 22px;
+    background: radial-gradient(circle, #ffeb3b 20%, #ff5722 70%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: absolute;
+    top: -12px;
+    left: 21px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: flicker 1.5s ease-in-out infinite alternate;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.8);
+}
+
+.flame.lit {
+    opacity: 1;
+}
+
+@keyframes flicker {
+    0% { transform: rotate(-1deg) scale(1); }
+    100% { transform: rotate(1deg) scale(1.05); }
+}
+
+/* Image de Marie */
+.marie-image {
+    width: 180px;
+    height: 240px;
+    background: linear-gradient(145deg, #87CEEB, #4682B4);
+    border-radius: 15px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid #ddd;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.marie-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.marie-image.visible {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130"><circle cx="50" cy="25" r="12" fill="%23f4d2a7"/><path d="M38 35 Q50 32 62 35 Q60 75 50 80 Q40 75 38 35" fill="%234682B4"/><path d="M45 50 Q50 45 55 50 Q55 65 50 70 Q45 65 45 50" fill="%23FFD700"/><circle cx="47" cy="23" r="1.5" fill="%23333"/><circle cx="53" cy="23" r="1.5" fill="%23333"/><path d="M48 26 Q50 28 52 26" stroke="%23333" fill="none"/><circle cx="50" cy="15" r="15" fill="none" stroke="%23FFD700" stroke-width="1" opacity="0.7"/></svg>') center/cover;
+    color: transparent;
+}
+
+/* Encens */
+.incense-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.incense {
+    width: 40px;
+    height: 100px;
+    background: linear-gradient(to top, #8B4513, #CD853F);
+    border-radius: 5px;
+    margin: 0 auto;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.incense:hover {
+    transform: scale(1.1);
+}
+
+.smoke {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 2px;
+    height: 30px;
+    background: rgba(200, 200, 200, 0.6);
+    opacity: 0;
+    animation: rising-smoke 3s ease-in-out infinite;
+    transform-origin: bottom;
+}
+
+.smoke.burning {
+    opacity: 1;
+}
+
+@keyframes rising-smoke {
+    0% { transform: translateX(-50%) scaleY(0) rotate(0deg); }
+    50% { transform: translateX(-45%) scaleY(1) rotate(5deg); }
+    100% { transform: translateX(-55%) scaleY(0.5) rotate(-3deg); }
+}
+
+/* Papier */
+.paper-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.paper {
+    width: 200px;
+    height: 150px;
+    background: #f9f9f9;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.paper:hover {
+    background: #f0f0f0;
+    border-color: #999;
+}
+
+.paper.written {
+    background: #fff;
+    border: 2px solid #667eea;
+}
+
+.paper.in-hand {
+    transform: rotate(-10deg) scale(0.9);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Zones de texte */
+.prayer-request {
+    width: 100%;
+    min-height: 100px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 16px;
+    margin: 15px 0;
+    transition: border-color 0.3s ease;
+    resize: vertical;
+}
+
+.prayer-request:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.prayer-request.crumpling {
+    animation: crumple 1.5s ease-in-out;
+}
+
+@keyframes crumple {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(0.9) rotate(5deg); }
+    50% { transform: scale(0.7) rotate(-10deg); }
+    75% { transform: scale(0.4) rotate(15deg); }
+    100% { transform: scale(0) rotate(180deg); opacity: 0; }
+}
+
+.meditation-input {
+    width: 100%;
+    min-height: 200px;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    font-family: inherit;
+    font-size: 16px;
+    margin: 15px 0;
+    transition: border-color 0.3s ease;
+    resize: vertical;
+}
+
+.meditation-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+}
+
+/* Chapelet */
+.rosary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+}
+
+.bead {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #8B4513;
+    margin: 2px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid #654321;
+}
+
+.bead.large {
+    width: 18px;
+    height: 18px;
+    background: #CD853F;
+    border: 2px solid #8B4513;
+}
+
+.bead.prayed {
+    background: #FFD700;
+    border-color: #FFA500;
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.bead:hover {
+    transform: scale(1.1);
+}
+
+/* ===== ZONES DE TEXTE SPÉCIALES ===== */
+.prayer-text {
+    background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border-left: 5px solid #667eea;
+    font-style: italic;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.recollection {
+    background: linear-gradient(145deg, #fff3cd, #ffeaa7);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 15px 0;
+    text-align: center;
+    border: 2px solid #f39c12;
+    font-weight: bold;
+    color: #856404;
+}
+
+.mystery-meditation {
+    background: linear-gradient(145deg, #d4edda, #c3e6cb);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 15px 0;
+    border: 2px solid #28a745;
+}
+
+.sign-cross {
+    text-align: center;
+    font-size: 28px;
+    color: #667eea;
+    margin: 25px 0;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+}
+
+/* ===== MYSTÈRES ===== */
+.mysteries {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.mystery-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.mystery-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.mystery-title {
+    color: #667eea;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* ===== CONTRÔLES ===== */
+.controls {
+    text-align: center;
+    margin: 30px 0;
+    position: sticky;
+    bottom: 20px;
+    z-index: 100;
+}
+
+.btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.btn:hover {
+    background: #5a6fd8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn.complete-step {
+    background: #28a745;
+    margin-left: 20px;
+}
+
+.btn.complete-step:hover {
+    background: #218838;
+}
+
+/* ===== SILENCE TIMER ===== */
+.silence-timer {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #667eea;
+    margin: 20px 0;
+}
+
+/* ===== UTILITAIRES ===== */
+.hidden {
+    display: none;
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header h1 {
+        font-size: 2em;
+    }
+    
+    .mysteries {
+        grid-template-columns: 1fr;
+    }
+    
+    .controls {
+        position: relative;
+        bottom: auto;
+    }
+    
+    .marie-image {
+        width: 150px;
+        height: 200px;
+    }
+    
+    .step-card {
+        padding: 20px;
+        margin: 15px 0;
+    }
+    
+    .btn {
+        margin: 5px;
+        padding: 10px 20px;
+    }
+}
