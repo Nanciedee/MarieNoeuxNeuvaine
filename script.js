@@ -211,7 +211,7 @@ function extinguishCandle() {
 function showMarie() {
     const imgContainer = document.getElementById('marie-img');
     imgContainer.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Maria_Knotenloeserin.jpg/800px-Maria_Knotenloeserin.jpg" alt="Marie qui défait les nœuds" style="width: 100%; border-radius: 8px;">';
-}
+}}
 
 function burnIncense() {
     const incense = document.querySelector('.incense');
