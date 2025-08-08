@@ -271,4 +271,115 @@
                 <div class="recollection">
                     🌟 Recueillement après la supplication 🌟
                 </div>
-                <p>Laissez votre demande s'élever vers le
+                <p>Laissez votre demande s'élever vers le cœur de Marie.</p>
+            </div>
+        </div>
+
+        <!-- Étape 16: Méditation du jour -->
+        <div class="step-card" id="step-16">
+            <div class="step-title">
+                <div class="step-number">16</div>
+                Lisez la méditation du premier jour de la neuvaine
+            </div>
+            <div class="step-content">
+                <p>Voici l'espace pour la méditation du jour :</p>
+                <textarea class="meditation-input" id="daily-meditation" placeholder="Insérez ici la méditation du jour de la neuvaine...&#10;&#10;Exemple pour le Jour 1 :&#10;'Marie, en ce premier jour de notre neuvaine, nous nous tournons vers vous avec confiance. Vous qui avez dit oui à Dieu sans condition, aidez-nous à accepter sa volonté dans nos vies. Défaites le premier nœud qui nous entrave : celui du doute et de la peur. Que votre foi illumine la nôtre.'"></textarea>
+            </div>
+        </div>
+
+        <!-- Étape 17: Recueillement -->
+        <div class="step-card" id="step-17">
+            <div class="step-title">
+                <div class="step-number">17</div>
+                Recueillez-vous à nouveau
+            </div>
+            <div class="step-content">
+                <div class="recollection">
+                    📖 Méditez sur les paroles que vous venez de lire 📖
+                </div>
+                <p>Laissez la méditation pénétrer votre cœur et éclairer votre situation.</p>
+            </div>
+        </div>
+
+        <!-- Étape 18: Deux dernières dizaines -->
+        <div class="step-card" id="step-18">
+            <div class="step-title">
+                <div class="step-number">18</div>
+                Priez les deux dernières dizaines du chapelet
+            </div>
+            <div class="step-content">
+                <p><strong>Pour chaque dizaine :</strong> Un Notre Père + Dix Je vous salue Marie + Un Gloire au Père</p>
+                <div class="rosary" id="second-rosary">
+                    <!-- Deuxième série de 2 dizaines -->
+                </div>
+                <p>Continuez à méditer sur les mystères pendant ces dernières dizaines.</p>
+            </div>
+        </div>
+
+        <!-- Étape 19: Moment de silence -->
+        <div class="step-card" id="step-19">
+            <div class="step-title">
+                <div class="step-number">19</div>
+                Observez un moment de silence
+            </div>
+            <div class="step-content">
+                <div class="recollection">
+                    🤫 Silence contemplatif 🤫
+                </div>
+                <div class="silence-timer" id="silence-timer">
+                    <button class="btn" onclick="startSilence()">Commencer le silence (1 minute)</button>
+                    <div id="timer-display" style="display: none; margin-top: 20px;">
+                        <div style="font-size: 48px; color: #667eea;" id="countdown">60</div>
+                        <p>Restez en silence et communion avec Marie</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Étape 20: Conclusion -->
+        <div class="step-card" id="step-20">
+            <div class="step-title">
+                <div class="step-number">20</div>
+                Signe de croix et conclusion
+            </div>
+            <div class="step-content">
+                <div class="sign-cross">✚ Au nom du Père, et du Fils, et du Saint-Esprit. Amen. ✚</div>
+                <div class="candle-container">
+                    <div class="candle" onclick="extinguishCandle()">
+                        <div class="flame lit" id="final-flame"></div>
+                    </div>
+                </div>
+                <p id="final-candle-status">Cliquez pour éteindre la bougie</p>
+                <div class="prayer-text">
+                    <strong>Prière terminée pour aujourd'hui</strong><br><br>
+                    <em>Demain matin, séparez-vous du papier sur lequel vous avez écrit le nœud en le chiffonnant ou en le brûlant, puis recommencez la neuvaine avec un nouveau nœud si vous le souhaitez.</em>
+                </div>
+                <button class="btn" onclick="crumplePaper()" style="margin-top: 20px;">Chiffonner le papier de demain</button>
+                <button class="btn" onclick="nextDay()" style="background: #f39c12;">Passer au jour suivant</button>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" id="prev-btn" onclick="previousStep()">Précédent</button>
+            <button class="btn" id="next-btn" onclick="nextStep()">Suivant</button>
+            <button class="btn complete-step" id="complete-btn" onclick="completeStep()">Terminer cette étape</button>
+        </div>
+
+        <!-- Menu utilitaire (masqué par défaut) -->
+        <div style="position: fixed; bottom: 10px; right: 10px;">
+            <button class="btn" onclick="document.getElementById('utility-menu').style.display='block'" style="background: #6c757d; font-size: 12px; padding: 8px 12px;">⚙️</button>
+        </div>
+
+        <div id="utility-menu" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000;">
+            <h3 style="margin-bottom: 15px;">Outils de gestion</h3>
+            <button class="btn" onclick="resetNovena()" style="background: #dc3545; margin: 5px;">Recommencer</button>
+            <button class="btn" onclick="exportProgress()" style="background: #17a2b8; margin: 5px;">Exporter</button>
+            <input type="file" id="import-file" accept=".json" onchange="importProgress(event)" style="display: none;">
+            <button class="btn" onclick="document.getElementById('import-file').click()" style="background: #17a2b8; margin: 5px;">Importer</button>
+            <button class="btn" onclick="document.getElementById('utility-menu').style.display='none'" style="background: #6c757d; margin: 5px;">Fermer</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
