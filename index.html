@@ -17,38 +17,35 @@
             </div>
         </div>
 
-        <!-- Étape 1: Allumer la bougie -->
         <div class="step-card active" id="step-1">
-    <div class="step-title">
-        <div class="step-number">1</div>
-        Allumez une bougie
-    </div>
-    <div class="step-content">
-        <p>Cliquez sur la bougie pour l'allumer et commencer votre prière.</p>
-        <div class="candle-container">
-            <div class="candle" onclick="lightCandle()" id="candle-1">
-                <div class="flame" id="flame"></div>
+            <div class="step-title">
+                <div class="step-number">1</div>
+                Allumez une bougie
+            </div>
+            <div class="step-content">
+                <p>Cliquez sur la bougie pour l'allumer et commencer votre prière.</p>
+                <div class="candle-container">
+                    <div class="candle" onclick="lightCandle()" id="candle-1">
+                        <div class="flame" id="flame"></div>
+                    </div>
+                </div>
+                <p id="candle-status">Bougie éteinte - Cliquez pour allumer</p>
             </div>
         </div>
-        <p id="candle-status">Bougie éteinte - Cliquez pour allumer</p>
-    </div>
-</div>
 
-        <!-- Étape 2: Image de Marie -->
         <div class="step-card" id="step-2">
-    <div class="step-title">
-        <div class="step-number">2</div>
-        Placez une image de Marie près de vous
-    </div>
-    <div class="step-content">
-        <p>Si vous possédez une image de Marie qui défait les nœuds, placez-la près de vous. Sinon, l'image ci-dessous est là pour vous.</p>
-        <div class="marie-image" id="marie-img">
-            <img src="Marie.png" alt="Marie qui défait les nœuds" style="width: 100%; border-radius: 8px; max-width: 300px; display: block; margin: 20px auto;">
+            <div class="step-title">
+                <div class="step-number">2</div>
+                Placez une image de Marie près de vous
+            </div>
+            <div class="step-content">
+                <p>Si vous possédez une image de Marie qui défait les nœuds, placez-la près de vous. Sinon, l'image ci-dessous est là pour vous.</p>
+                <div class="marie-image" id="marie-img">
+                    <img src="Marie.png" alt="Marie qui défait les nœuds" style="width: 100%; border-radius: 8px; max-width: 300px; display: block; margin: 20px auto;">
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-        <!-- Étape 3: Brûler l'encens -->
         <div class="step-card" id="step-3">
             <div class="step-title">
                 <div class="step-number">3</div>
@@ -65,7 +62,6 @@
             </div>
         </div>
 
-        <!-- Étape 4: Écrire le nœud -->
         <div class="step-card" id="step-4">
             <div class="step-title">
                 <div class="step-number">4</div>
@@ -82,7 +78,6 @@
             </div>
         </div>
 
-        <!-- Étape 5: Munissez-vous de votre chapelet -->
         <div class="step-card" id="step-5">
             <div class="step-title">
                 <div class="step-number">5</div>
@@ -90,14 +85,12 @@
             </div>
             <div class="step-content">
                 <p>Prenez votre chapelet en main pour commencer la prière.</p>
-                <div class="rosary" id="main-rosary" style="display: none;">
-                    <!-- Chapelet complet qui apparaîtra -->
+                <div class="rosary" id="main-rosary">
+                    <img src="rosary-image.png" alt="Chapelet" style="width: 100%; max-width: 250px; display: block; margin: 20px auto;">
                 </div>
-                <button class="btn" onclick="showRosary()">Révéler le chapelet</button>
             </div>
         </div>
 
-        <!-- Étape 6: Recueillement -->
         <div class="step-card" id="step-6">
             <div class="step-title">
                 <div class="step-number">6</div>
@@ -111,7 +104,6 @@
             </div>
         </div>
 
-        <!-- Étape 7: Signe de croix -->
         <div class="step-card" id="step-7">
             <div class="step-title">
                 <div class="step-number">7</div>
@@ -122,7 +114,6 @@
             </div>
         </div>
 
-        <!-- Étape 8: Acte de contrition -->
         <div class="step-card" id="step-8">
             <div class="step-title">
                 <div class="step-number">8</div>
@@ -142,7 +133,6 @@
             </div>
         </div>
 
-        <!-- Étape 9: Méditation sur les mystères -->
         <div class="step-card" id="step-9">
             <div class="step-title">
                 <div class="step-number">9</div>
@@ -151,19 +141,19 @@
             <div class="step-content">
                 <p>Méditez sur le mystère qui va être prié avant chaque dizaine de chapelet selon le jour de la semaine :</p>
                 <div class="mysteries">
-                    <div class="mystery-card">
+                    <div class="mystery-card" data-mystery="joyeux">
                         <div class="mystery-title">Mystères Joyeux</div>
                         <p>Lundi et Samedi</p>
                     </div>
-                    <div class="mystery-card">
+                    <div class="mystery-card" data-mystery="lumineux">
                         <div class="mystery-title">Mystères Lumineux</div>
                         <p>Jeudi</p>
                     </div>
-                    <div class="mystery-card">
+                    <div class="mystery-card" data-mystery="douloureux">
                         <div class="mystery-title">Mystères Douloureux</div>
                         <p>Mardi et Vendredi</p>
                     </div>
-                    <div class="mystery-card">
+                    <div class="mystery-card" data-mystery="glorieux">
                         <div class="mystery-title">Mystères Glorieux</div>
                         <p>Mercredi et Dimanche</p>
                     </div>
@@ -174,7 +164,6 @@
             </div>
         </div>
 
-        <!-- Étape 10: Trois premières dizaines -->
         <div class="step-card" id="step-10">
             <div class="step-title">
                 <div class="step-number">10</div>
@@ -183,13 +172,11 @@
             <div class="step-content">
                 <p><strong>Pour chaque dizaine :</strong> Un Notre Père + Dix Je vous salue Marie + Un Gloire au Père</p>
                 <div class="rosary" id="first-rosary">
-                    <!-- Première série de 3 dizaines -->
-                </div>
+                    </div>
                 <p>Cliquez sur chaque grain au fur et à mesure de vos prières.</p>
             </div>
         </div>
 
-        <!-- Étape 11: Recueillement -->
         <div class="step-card" id="step-11">
             <div class="step-title">
                 <div class="step-number">11</div>
@@ -203,7 +190,6 @@
             </div>
         </div>
 
-        <!-- Étape 12: Prière de louange -->
         <div class="step-card" id="step-12">
             <div class="step-title">
                 <div class="step-number">12</div>
@@ -211,21 +197,11 @@
             </div>
             <div class="step-content">
                 <div class="prayer-text">
-                    <strong>Prière de louange :</strong><br><br>
-                    Vierge Marie, Mère du bel Amour, Mère qui n'avez jamais abandonné un enfant qui crie au secours, Mère dont les mains travaillent sans cesse pour vos enfants bien aimés, car elles sont poussées par l'Amour divin et l'infinie Miséricorde qui déborde de votre cœur, tournez votre regard plein de compassion vers moi.<br><br>
-                    
-                    Voyez le paquet de « nœuds » qui étouffent ma vie. Vous connaissez mon désespoir et ma douleur. Vous savez combien ces nœuds me paralysent.<br><br>
-                    
-                    Marie, Mère que Dieu a chargée de défaire les « nœuds » de la vie de vos enfants, je dépose le ruban de ma vie dans vos mains. Personne, pas même le Malin, ne peut le soustraire à votre aide miséricordieuse.<br><br>
-                    
-                    Dans vos mains, il n'y a pas un seul nœud qui ne puisse être défait. Vous êtes l'unique Consolatrice que Dieu m'a donnée, vous êtes la forteresse de mes forces fragiles, la richesse de mes misères, la délivrance de tout ce qui m'empêche d'être avec le Christ.<br><br>
-                    
-                    Marie, Vous qui défaites les nœuds, priez pour nous. Amen.
+                    <strong id="louange-text"></strong>
                 </div>
             </div>
         </div>
 
-        <!-- Étape 13: Recueillement -->
         <div class="step-card" id="step-13">
             <div class="step-title">
                 <div class="step-number">13</div>
@@ -239,7 +215,6 @@
             </div>
         </div>
 
-        <!-- Étape 14: Prière de supplication -->
         <div class="step-card" id="step-14">
             <div class="step-title">
                 <div class="step-number">14</div>
@@ -247,25 +222,15 @@
             </div>
             <div class="step-content">
                 <div class="prayer-text">
-                    <strong>Prière de supplication :</strong><br><br>
-                    Mère toute puissante, par votre grâce et par votre pouvoir d'intercession auprès de votre Fils Jésus, Mon Libérateur, recevez aujourd'hui ce « nœud » que je vous présente :<br><br>
-                    
-                    <strong id="user-request-supplication">(Votre nœud apparaîtra ici)</strong><br><br>
-                    
-                    Pour la gloire de Dieu, je vous demande de le défaire et de le défaire pour toujours. J'espère en Vous.<br><br>
-                    
-                    Accueillez mon appel. Gardez-moi, guidez-moi, protégez-moi. Vous êtes mon refuge assuré.<br><br>
-                    
-                    Marie, Vous qui défaites les nœuds, priez pour nous. Amen.
+                    <strong id="supplication-text"></strong>
                 </div>
             </div>
         </div>
 
-        <!-- Étape 15: Recueillement -->
         <div class="step-card" id="step-15">
             <div class="step-title">
                 <div class="step-number">15</div>
-                Fermez les yeux et recueillez-vous
+                Recueillez-vous
             </div>
             <div class="step-content">
                 <div class="recollection">
@@ -275,19 +240,16 @@
             </div>
         </div>
 
-        <!-- Étape 16: Méditation du jour -->
         <div class="step-card" id="step-16">
             <div class="step-title">
                 <div class="step-number">16</div>
                 Lisez la méditation du premier jour de la neuvaine
             </div>
             <div class="step-content">
-                <p>Voici l'espace pour la méditation du jour :</p>
-                <textarea class="meditation-input" id="daily-meditation" placeholder="Insérez ici la méditation du jour de la neuvaine...&#10;&#10;Exemple pour le Jour 1 :&#10;'Marie, en ce premier jour de notre neuvaine, nous nous tournons vers vous avec confiance. Vous qui avez dit oui à Dieu sans condition, aidez-nous à accepter sa volonté dans nos vies. Défaites le premier nœud qui nous entrave : celui du doute et de la peur. Que votre foi illumine la nôtre.'"></textarea>
+                <p id="daily-meditation-text"></p>
             </div>
         </div>
 
-        <!-- Étape 17: Recueillement -->
         <div class="step-card" id="step-17">
             <div class="step-title">
                 <div class="step-number">17</div>
@@ -301,7 +263,6 @@
             </div>
         </div>
 
-        <!-- Étape 18: Deux dernières dizaines -->
         <div class="step-card" id="step-18">
             <div class="step-title">
                 <div class="step-number">18</div>
@@ -310,13 +271,11 @@
             <div class="step-content">
                 <p><strong>Pour chaque dizaine :</strong> Un Notre Père + Dix Je vous salue Marie + Un Gloire au Père</p>
                 <div class="rosary" id="second-rosary">
-                    <!-- Deuxième série de 2 dizaines -->
-                </div>
+                    </div>
                 <p>Continuez à méditer sur les mystères pendant ces dernières dizaines.</p>
             </div>
         </div>
 
-        <!-- Étape 19: Moment de silence -->
         <div class="step-card" id="step-19">
             <div class="step-title">
                 <div class="step-number">19</div>
@@ -336,7 +295,6 @@
             </div>
         </div>
 
-        <!-- Étape 20: Conclusion -->
         <div class="step-card" id="step-20">
             <div class="step-title">
                 <div class="step-number">20</div>
@@ -345,12 +303,12 @@
             <div class="step-content">
                 <div class="sign-cross">✚ Au nom du Père, et du Fils, et du Saint-Esprit. Amen. ✚</div>
                 <div class="candle-container">
-                    <div class="candle" onclick="extinguishCandle()">
+                    <div class="candle" onclick="extinguishCandle()" id="candle-20">
                         <div class="flame lit" id="final-flame"></div>
                     </div>
                 </div>
                 <p id="final-candle-status">Cliquez pour éteindre la bougie</p>
-                <div class="prayer-text">
+                <div class="prayer-text" id="final-text">
                     <strong>Prière terminée pour aujourd'hui</strong><br><br>
                     <em>Demain matin, séparez-vous du papier sur lequel vous avez écrit le nœud en le chiffonnant ou en le brûlant, puis recommencez la neuvaine avec un nouveau nœud si vous le souhaitez.</em>
                 </div>
@@ -359,24 +317,30 @@
             </div>
         </div>
 
-        <div class="controls">
-            <button class="btn" id="prev-btn" onclick="previousStep()">Précédent</button>
-            <button class="btn" id="next-btn" onclick="nextStep()">Suivant</button>
-            <button class="btn complete-step" id="complete-btn" onclick="completeStep()">Terminer cette étape</button>
-        </div>
+    </div>
 
-        <!-- Menu utilitaire (masqué par défaut) -->
-        <div style="position: fixed; bottom: 10px; right: 10px;">
-            <button class="btn" onclick="document.getElementById('utility-menu').style.display='block'" style="background: #6c757d; font-size: 12px; padding: 8px 12px;">⚙️</button>
-        </div>
+    <div class="controls">
+        <button class="btn" id="prev-btn" onclick="previousStep()">Précédent</button>
+        <button class="btn" id="next-btn" onclick="nextStep()">Suivant</button>
+    </div>
 
-        <div id="utility-menu" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000;">
-            <h3 style="margin-bottom: 15px;">Outils de gestion</h3>
-            <button class="btn" onclick="resetNovena()" style="background: #dc3545; margin: 5px;">Recommencer</button>
-            <button class="btn" onclick="exportProgress()" style="background: #17a2b8; margin: 5px;">Exporter</button>
-            <input type="file" id="import-file" accept=".json" onchange="importProgress(event)" style="display: none;">
-            <button class="btn" onclick="document.getElementById('import-file').click()" style="background: #17a2b8; margin: 5px;">Importer</button>
-            <button class="btn" onclick="document.getElementById('utility-menu').style.display='none'" style="background: #6c757d; margin: 5px;">Fermer</button>
+    <div style="position: fixed; bottom: 10px; right: 10px;">
+        <button class="btn" onclick="document.getElementById('utility-menu').style.display='block'" style="background: #6c757d; font-size: 12px; padding: 8px 12px;">⚙️</button>
+    </div>
+
+    <div id="utility-menu" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000;">
+        <h3 style="margin-bottom: 15px;">Outils de gestion</h3>
+        <button class="btn" onclick="resetNovena()" style="background: #dc3545; margin: 5px;">Recommencer</button>
+        <button class="btn" onclick="exportProgress()" style="background: #17a2b8; margin: 5px;">Exporter</button>
+        <input type="file" id="import-file" accept=".json" onchange="importProgress(event)" style="display: none;">
+        <button class="btn" onclick="document.getElementById('import-file').click()" style="background: #17a2b8; margin: 5px;">Importer</button>
+        <button class="btn" onclick="document.getElementById('utility-menu').style.display='none'" style="background: #6c757d; margin: 5px;">Fermer</button>
+    </div>
+
+    <div id="mystery-modal" class="mystery-modal" style="display:none;">
+        <div class="mystery-modal-content">
+            <span class="close-btn" onclick="closeMysteryModal()">&times;</span>
+            <p id="mystery-content"></p>
         </div>
     </div>
 
