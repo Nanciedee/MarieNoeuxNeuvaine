@@ -16,7 +16,11 @@
                 <div class="progress-fill" id="progress-fill"></div>
             </div>
         </div>
-
+<div class="flex justify-center space-x-4 mb-4">
+    <button id="goToDay1" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+        Aller au Jour 1
+    </button>
+    </div>
         <div class="step-card active" id="step-1">
             <div class="step-title">
                 <div class="step-number">1</div>
@@ -338,13 +342,38 @@
     </div>
 
     <div id="mystery-modal" class="mystery-modal" style="display:none;">
-    <div class="mystery-modal-content">
-        <span class="close-btn" onclick="closeMysteryModal()">&times;</span>
-        <h2 id="mystery-title"></h2>
-        <p id="mystery-content"></p>
+        <div class="mystery-modal-content">
+            <span class="close-btn" onclick="closeMysteryModal()">&times;</span>
+            <h2 id="mystery-title"></h2>
+            <p id="mystery-content"></p>
+        </div>
     </div>
-</div>
 
     <script src="script.js"></script>
+
+    <script>
+        // Fonction pour forcer l'affichage du Jour 1
+        function goToDay1() {
+            // Puisque votre logique de neuvaine utilise l'index du jour (0-6),
+            // on force l'affichage du contenu correspondant à l'index 1 (Lundi/Jour Joyeux)
+            // C'est la façon la plus simple de garantir l'affichage du Jour 1 de votre neuvaine.
+            updateContent(1); 
+            
+            // Mise à jour visuelle du compteur pour que l'utilisateur sache où il est
+            document.getElementById('day-counter').textContent = "Jour 1 de la Neuvaine (Mode Forcé)";
+            document.getElementById('progress-fill').style.width = '11.1%'; // 1/9ème de la neuvaine
+        }
+
+        // Ajoutez l'écouteur d'événement pour lier le bouton
+        // Ceci garantit que le bouton 'goToDay1' existe AVANT d'essayer de lui attacher un événement.
+        document.addEventListener('DOMContentLoaded', () => {
+            const goToDay1Button = document.getElementById('goToDay1');
+            if (goToDay1Button) {
+                goToDay1Button.addEventListener('click', goToDay1);
+            }
+        });
+        
+        // J'ai enlevé le deuxième 'updateContent(1);' car il était redondant.
+    </script>
 </body>
 </html>
