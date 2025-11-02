@@ -350,40 +350,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
-
-    <script>
-        // Si vous avez une variable 'currentNeuvaineDay' dans script.js, elle sera écrasée ici.
-        // C'est souvent mieux de la gérer dans le script principal.
-        
-        // Nouvelle fonction pour forcer l'affichage du Jour 1
-        function goToDay1() {
-            // 1. Réinitialiser la variable globale qui suit le jour de la neuvaine (si elle existe dans script.js)
-            if (typeof currentNovenaDay !== 'undefined') {
-                currentNovenaDay = 1; // Le jour 1 de la neuvaine
-                localStorage.setItem('novenaDay', 1); // Mise à jour du stockage local si vous l'utilisez
-            }
-            
-            // 2. Mettre à jour le contenu : on utilise l'index 1 (Lundi) pour les mystères joyeux.
-            // Si updateContent(day) utilise le jour de la semaine (0-6), 1 est Lundi.
-            updateContent(1); 
-            
-            // 3. Mise à jour visuelle du compteur (pour que l'utilisateur voie la réinitialisation)
-            document.getElementById('day-counter').textContent = "Jour 1 de la Neuvaine (Réinitialisé)";
-            document.getElementById('progress-fill').style.width = '11.1%'; // 1/9ème de la neuvaine
-        }
-
-        // Lier le bouton après que tous les éléments aient été chargés (bonne pratique)
-        document.addEventListener('DOMContentLoaded', () => {
-            const goToDay1Button = document.getElementById('goToDay1');
-            if (goToDay1Button) {
-                goToDay1Button.addEventListener('click', goToDay1);
-            }
-            
-            // ** IMPORTANT : Si votre script principal n'appelle pas updateContent() 
-            // au chargement, il faut l'ajouter ici ou dans script.js pour que l'affichage 
-            // fonctionne dès le départ. **
-        });
-    </script>
+   <script src="script.js"></script>
 </body>
 </html>
