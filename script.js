@@ -420,3 +420,30 @@ function importProgress(event) {
     };
     reader.readAsText(file);
 }
+// ====================================================================
+// NOUVEAU BLOC D'INITIALISATION : C'EST LE FIL DE CONNEXION MANQUANT !
+// Il lie le bouton 'Aller au Jour 1' à sa fonction.
+// ====================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Liaison du bouton 'Aller au Jour 1'
+    const goToDay1Button = document.getElementById('goToDay1');
+    if (goToDay1Button) {
+        // Cette ligne branche le bouton à la fonction goToDay1() que nous avons ajoutée.
+        goToDay1Button.addEventListener('click', goToDay1);
+    }
+    
+    // 2. Si vous avez d'autres boutons nécessitant une liaison JS (comme le bouton 'Passer au jour suivant')
+    // C'est ici qu'il faudrait les ajouter.
+    // Exemple :
+    // const nextDayButton = document.querySelector('button[onclick="nextDay()"]');
+    // if (nextDayButton) {
+    //     nextDayButton.addEventListener('click', nextDay);
+    // }
+
+    // 3. Mise à jour initiale de l'interface utilisateur
+    // On assume que vous initialisez votre application quelque part (e.g. en appelant updateUI() ou une fonction init).
+    // Si votre code est correctement structuré, l'appel à updateUI() pour charger l'état 
+    // actuel du jour de la neuvaine doit être ici ou au début du script.
+    // Par exemple:
+    // updateUI(); 
+});
