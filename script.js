@@ -348,7 +348,36 @@ function resetNovena() {
     updateUI();
     document.location.reload();
 }
+/**
+ * Force la réinitialisation de la neuvaine au Jour 1 sans vider toutes les données.
+ * Utile pour le bouton "Aller au Jour 1" sur la page.
+ */
+function goToDay1() {
+    // 1. Réinitialise le jour de la neuvaine à 1
+    novenaDay = 1; 
+    
+    // 2. Assure que l'on revient à la première étape de la journée (Étape 1)
+    currentStep = 1; 
 
+    // 3. Met à jour l'interface utilisateur avec les données du Jour 1
+    // (J'assume que updateUI() existe et met à jour l'affichage,
+    // y compris le contenu du jour et la barre de progression.)
+    updateUI(); 
+
+    // 4. Stocke la nouvelle valeur dans le localStorage
+    // (J'assume que la fonction saveProgress() est définie ailleurs
+    // et utilise 'novenaDay'.)
+    if (typeof saveProgress === 'function') {
+        saveProgress(); 
+    } else {
+        // En l'absence de saveProgress, on met à jour manuellement (méthode de secours)
+        localStorage.setItem('novenaDay', 1);
+        localStorage.setItem('currentStep', 1);
+    }
+    
+    // Alerte pour confirmer l'action à l'utilisateur
+    alert("La neuvaine est réinitialisée au Jour 1.");
+}
 function exportProgress() {
     const data = JSON.stringify({
         currentStep,
