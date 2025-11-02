@@ -2,11 +2,26 @@
 
 body {
     font-family: 'Merriweather', serif;
-    background: #f0f4f8;
+    
+    /* ------------------------------------------------------------- */
+    /* NOUVEAU CODE POUR L'IMAGE DE FOND */
+    /* 1. Utilisez background-color au lieu de la propriété raccourcie 'background' */
+    background-color: #f0f4f8; 
+    
+    /* 2. Ajout des propriétés de l'image de fond */
+    background-image: url('Marie background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed; 
+    background-position: center center;
+    /* ------------------------------------------------------------- */
+
     color: #4b5563;
     line-height: 1.6;
     margin: 0;
     padding: 20px;
+    
+    /* Propriétés de centrage Flexbox (à conserver) */
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -16,12 +31,16 @@ body {
 .container {
     max-width: 800px;
     width: 100%;
-    background: white;
+    
+    /* Je recommande d'ajouter un fond semi-transparent au container 
+       pour que le texte reste lisible sur la nouvelle image de fond */
+    background: rgba(255, 255, 255, 0.9); /* Blanc 90% opaque */
+    
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     padding: 30px;
     box-sizing: border-box;
-    margin: 20px 0 100px; /* Laisse de l'espace pour les boutons fixes */
+    margin: 20px 0 100px; 
 }
 
 .header {
