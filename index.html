@@ -16,11 +16,12 @@
                 <div class="progress-fill" id="progress-fill"></div>
             </div>
         </div>
-<div class="flex justify-center space-x-4 mb-4">
-    <button id="goToDay1" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded transition duration-300">
-        Aller au Jour 1
-    </button>
-    </div>
+        <div class="flex justify-center space-x-4 mb-4">
+            <button id="goToDay1" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                Aller au Jour 1
+            </button>
+        </div>
+        
         <div class="step-card active" id="step-1">
             <div class="step-title">
                 <div class="step-number">1</div>
@@ -136,37 +137,37 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="step-card" id="step-9">
-    <div class="step-title">
-        <div class="step-number">9</div>
-        Méditez sur le mystère à prier
-    </div>
-    <div class="step-content">
-        <p>Méditez sur le mystère qui va être prié avant chaque dizaine de chapelet selon le jour de la semaine :</p>
-        <div class="mysteries">
-            <a href="mysteries.html#joyeux" class="mystery-card" data-mystery="joyeux">
-                <div class="mystery-title">Mystères Joyeux</div>
-                <p>Lundi et Samedi</p>
-            </a>
-            <a href="mysteries.html#lumineux" class="mystery-card" data-mystery="lumineux">
-                <div class="mystery-title">Mystères Lumineux</div>
-                <p>Jeudi</p>
-            </a>
-            <a href="mysteries.html#douloureux" class="mystery-card" data-mystery="douloureux">
-                <div class="mystery-title">Mystères Douloureux</div>
-                <p>Mardi et Vendredi</p>
-            </a>
-            <a href="mysteries.html#glorieux" class="mystery-card" data-mystery="glorieux">
-                <div class="mystery-title">Mystères Glorieux</div>
-                <p>Mercredi et Dimanche</p>
-            </a>
+            <div class="step-title">
+                <div class="step-number">9</div>
+                Méditez sur le mystère à prier
+            </div>
+            <div class="step-content">
+                <p>Méditez sur le mystère qui va être prié avant chaque dizaine de chapelet selon le jour de la semaine :</p>
+                <div class="mysteries">
+                    <a href="mysteries.html#joyeux" class="mystery-card" data-mystery="joyeux">
+                        <div class="mystery-title">Mystères Joyeux</div>
+                        <p>Lundi et Samedi</p>
+                    </a>
+                    <a href="mysteries.html#lumineux" class="mystery-card" data-mystery="lumineux">
+                        <div class="mystery-title">Mystères Lumineux</div>
+                        <p>Jeudi</p>
+                    </a>
+                    <a href="mysteries.html#douloureux" class="mystery-card" data-mystery="douloureux">
+                        <div class="mystery-title">Mystères Douloureux</div>
+                        <p>Mardi et Vendredi</p>
+                    </a>
+                    <a href="mysteries.html#glorieux" class="mystery-card" data-mystery="glorieux">
+                        <div class="mystery-title">Mystères Glorieux</div>
+                        <p>Mercredi et Dimanche</p>
+                    </a>
+                </div>
+                <div class="mystery-meditation">
+                    <strong>Réflexion :</strong> Avant chaque dizaine, méditez sur le mystère correspondant et laissez-le illuminer votre cœur pendant que vous priez.
+                </div>
+            </div>
         </div>
-        <div class="mystery-meditation">
-            <strong>Réflexion :</strong> Avant chaque dizaine, méditez sur le mystère correspondant et laissez-le illuminer votre cœur pendant que vous priez.
-        </div>
-    </div>
-</div>
 
         <div class="step-card" id="step-10">
             <div class="step-title">
@@ -352,28 +353,37 @@
     <script src="script.js"></script>
 
     <script>
-        // Fonction pour forcer l'affichage du Jour 1
+        // Si vous avez une variable 'currentNeuvaineDay' dans script.js, elle sera écrasée ici.
+        // C'est souvent mieux de la gérer dans le script principal.
+        
+        // Nouvelle fonction pour forcer l'affichage du Jour 1
         function goToDay1() {
-            // Puisque votre logique de neuvaine utilise l'index du jour (0-6),
-            // on force l'affichage du contenu correspondant à l'index 1 (Lundi/Jour Joyeux)
-            // C'est la façon la plus simple de garantir l'affichage du Jour 1 de votre neuvaine.
+            // 1. Réinitialiser la variable globale qui suit le jour de la neuvaine (si elle existe dans script.js)
+            if (typeof currentNovenaDay !== 'undefined') {
+                currentNovenaDay = 1; // Le jour 1 de la neuvaine
+                localStorage.setItem('novenaDay', 1); // Mise à jour du stockage local si vous l'utilisez
+            }
+            
+            // 2. Mettre à jour le contenu : on utilise l'index 1 (Lundi) pour les mystères joyeux.
+            // Si updateContent(day) utilise le jour de la semaine (0-6), 1 est Lundi.
             updateContent(1); 
             
-            // Mise à jour visuelle du compteur pour que l'utilisateur sache où il est
-            document.getElementById('day-counter').textContent = "Jour 1 de la Neuvaine (Mode Forcé)";
+            // 3. Mise à jour visuelle du compteur (pour que l'utilisateur voie la réinitialisation)
+            document.getElementById('day-counter').textContent = "Jour 1 de la Neuvaine (Réinitialisé)";
             document.getElementById('progress-fill').style.width = '11.1%'; // 1/9ème de la neuvaine
         }
 
-        // Ajoutez l'écouteur d'événement pour lier le bouton
-        // Ceci garantit que le bouton 'goToDay1' existe AVANT d'essayer de lui attacher un événement.
+        // Lier le bouton après que tous les éléments aient été chargés (bonne pratique)
         document.addEventListener('DOMContentLoaded', () => {
             const goToDay1Button = document.getElementById('goToDay1');
             if (goToDay1Button) {
                 goToDay1Button.addEventListener('click', goToDay1);
             }
+            
+            // ** IMPORTANT : Si votre script principal n'appelle pas updateContent() 
+            // au chargement, il faut l'ajouter ici ou dans script.js pour que l'affichage 
+            // fonctionne dès le départ. **
         });
-        
-        // J'ai enlevé le deuxième 'updateContent(1);' car il était redondant.
     </script>
 </body>
 </html>
